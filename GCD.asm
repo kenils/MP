@@ -40,8 +40,7 @@ Start:
 	 	 	
 	jnz repeat   ;while(b!=0)
 
-	mov bl,al
-	mov gcd,bl  ;gcd=a
+	mov gcd,al  ;gcd=a
 
 	mov dx,offset msg3
 	mov ah,09h
