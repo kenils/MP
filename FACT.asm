@@ -2,6 +2,7 @@ Data Segment
 msg1 db 10,13,"Enter the number:$"
 msg2 db 10,13,"Factorial=:$"
 fact db ?
+facth db ?
 num db ?
 Data Ends
 Code Segment
@@ -17,6 +18,9 @@ Start:
 	call input
 	mov num,al
 
+	cmp num,00h
+	jz B
+
 	mov cl,num
 	mov ch,00h 
 	mov bl,01h ;serves as counter i
@@ -29,11 +33,24 @@ Start:
 
 	loop A 
 
+C:
 	mov fact,al
+	mov facth,ah
 
 	mov ah,09h
 	mov dx,offset msg2
 	int 21h
+
+
+	mov bl,facth
+	and bl,0f0h
+	ror bl,04h
+	call output
+
+	mov bl,facth
+	and bl,0fh
+	call output
+
 
 	mov bl,fact
 	and bl,0f0h
@@ -47,6 +64,10 @@ Start:
 
 	mov ax,4c00h
 	int 21h
+
+	B:
+	mov ax,0001h
+	jmp C
 
 
 
